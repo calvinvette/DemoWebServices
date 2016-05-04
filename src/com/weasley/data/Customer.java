@@ -10,10 +10,10 @@ import javax.xml.bind.annotation.XmlType;
 public class Customer implements Serializable {
 
 	private Long customerId = -1L;
-	private String firstName;
-	private String lastName;
-	private String phoneNumber;
-	private String email;
+	private String firstName = "";
+	private String lastName = "";
+	private String phoneNumber = "";
+	private String email = "";
 
 	public Customer() {
 	}

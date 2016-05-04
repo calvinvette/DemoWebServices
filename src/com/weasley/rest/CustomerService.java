@@ -40,6 +40,14 @@ public class CustomerService {
 	}
 
 	@DELETE
+	@Path("{id: \\d+}")
+	public Customer delete(@PathParam("id") Long customerId) {
+		Customer customer = new Customer();
+		customer.setCustomerId(customerId);
+		return dao.delete(customer);
+	}
+	
+	@DELETE
 	public Customer delete(Customer customer) {
 		return dao.delete(customer);
 	}
