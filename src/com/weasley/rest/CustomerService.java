@@ -38,7 +38,10 @@ public class CustomerService {
 		return dao.delete(customer);
 	}
 
-	public Customer findById(Long customerId) {
+	// http://localhost:8080/DemoWebServices/rest/customers/1234
+	@GET
+	@Path("{id: \\d+}")
+	public Customer findById(@PathParam("id") Long customerId) {
 		return dao.findById(customerId);
 	}
 
@@ -47,20 +50,27 @@ public class CustomerService {
 		return dao.findAll();
 	}
 
-//	http://localhost:8080/DemoWebServices/rest/customers/lastName/Weasley
+	// http://localhost:8080/DemoWebServices/rest/customers/lastName/Weasley
 	@Path("/lastName/{lastName}")
 	@GET
 	public List<Customer> findByLastName(@PathParam("lastName") String lastName) {
 		return dao.findByLastName(lastName);
 	}
-
-	public List<Customer> findByEmail(String email) {
+	
+	// http://localhost:8080/DemoWebServices/rest/customers/email/harry.potter@hogwarts.ac.uk
+	@GET
+	@Path("/email/{email}")
+	public List<Customer> findByEmail(@PathParam("email") String email) {
 		return dao.findByEmail(email);
 	}
 
-	public List<Customer> findByPhoneNumber(String phoneNumber) {
+	// http://localhost:8080/DemoWebServices/rest/customers/phone/+44 0206 555-1113
+	@GET
+	@Path("/phone/{phoneNumber}")
+	public List<Customer> findByPhoneNumber(@PathParam("phoneNumber") String phoneNumber) {
 		return dao.findByPhoneNumber(phoneNumber);
 	}
 
+	
 	
 }

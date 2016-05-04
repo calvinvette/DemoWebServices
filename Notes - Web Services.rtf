@@ -434,7 +434,44 @@ REST/JAX-RS\
 \f2\fs36 \cf6 @ApplicationPath\cf0 (\cf3 "/rest"\cf0 )\
 \cf4 public\cf0  \cf4 class\cf0  WeasleyApplication \cf4 extends\cf0  Application \{\
 \
-\}
+\}\
+\
+\
+4. For the findById method in CustomerService, add in another \
+	@GET and @Path("/id: \{\\\\d\}") and an @PathParam for the  customerId\
+	(use the regex "\\\\d+" to limit to digits):\
+\
+\pard\pardeftab720\partightenfactor0
+\cf7 	// http://localhost:8080/DemoWebServices/rest/customers/1234\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 	@GET\cf0 \
+	\cf6 @Path\cf0 (\cf3 "\{id: \\\\d+\}"\cf0 )\
+	\
+	\cf4 public\cf0  Customer findById(\cf6 @PathParam\cf0 (\cf3 "id"\cf0 ) Long \cf8 customerId\cf0 ) \{\
+\
+5. For findByPhoneNumber, add in the same but for a phone number:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 	\cf7 // http://localhost:8080/DemoWebServices/rest/customers/phone/+44 0206 555-1113\cf0 \
+	\cf6 @GET\cf0 \
+	\cf6 @Path\cf0 (\cf3 "/phone/\{phoneNumber\}"\cf0 )\
+	\cf4 public\cf0  List<Customer> findByPhoneNumber(\cf6 @PathParam\cf0 (\cf3 "phoneNumber"\cf0 ) String \cf8 phoneNumber\cf0 ) \{\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+5. For findByEmail, add in the same but for an email address:\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 	\cf7 // http://localhost:8080/DemoWebServices/rest/customers/email/harry.potter@hogwarts.ac.uk\cf0 \
+	\cf6 @GET\cf0 \
+	\cf6 @Path\cf0 (\cf3 "/email/\{email\}"\cf0 )\
+	\cf4 public\cf0  List<Customer> findByEmail(\cf6 @PathParam\cf0 (\cf3 "email"\cf0 ) String \cf8 email\cf0 ) \{\
+\
+\
+\
+\
+
 \f0\fs24 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
