@@ -460,7 +460,7 @@ REST/JAX-RS\
 \
 \pard\pardeftab720\partightenfactor0
 \cf0 \
-5. For findByEmail, add in the same but for an email address:\
+6. For findByEmail, add in the same but for an email address:\
 \
 \pard\pardeftab720\partightenfactor0
 \cf0 	\cf7 // http://localhost:8080/DemoWebServices/rest/customers/email/harry.potter@hogwarts.ac.uk\cf0 \
@@ -469,12 +469,32 @@ REST/JAX-RS\
 	\cf4 public\cf0  List<Customer> findByEmail(\cf6 @PathParam\cf0 (\cf3 "email"\cf0 ) String \cf8 email\cf0 ) \{\
 \
 \
+7. Modify the class to produce and consume both XML and JSON\
+\cf6 	@Path\cf0 (\cf3 "/customers"\cf0 )\
+\cf6 	@Produces\cf0 (\{MediaType.\cf5 APPLICATION_XML\cf0 , MediaType.\cf5 APPLICATION_JSON\cf0 \})\
+\cf6 	@Consumes\cf0 (\{MediaType.\cf5 APPLICATION_XML\cf0 , MediaType.\cf5 APPLICATION_JSON\cf0 \})\
+\cf4 	public\cf0  \cf4 class\cf0  CustomerService \{\
+\
+8. Add in @POST above the insert method:\
+\cf6 	@POST\cf0 \
+	\cf4 public\cf0  Customer insert(Customer \cf8 customer\cf0 ) \{\
+\
+9. Add in @PUT above the update method:\
+	\cf6 @PUT\cf0 \
+	\cf4 public\cf0  Customer update(Customer \cf8 customer\cf0 ) \{\
+\
+10. Add in @DELETE above the delete method:\
+	\cf6 @DELETE\cf0 \
+	\cf4 public\cf0  Customer delete(Customer \cf8 customer\cf0 ) \{\
+\
 \
 \
 
 \f0\fs24 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
+\
+\
 \
 \
 \

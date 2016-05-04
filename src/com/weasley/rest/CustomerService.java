@@ -3,7 +3,10 @@ package com.weasley.rest;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -20,20 +23,23 @@ import com.weasley.data.MockCustomerDAO;
 // @Path is appended to that:
 // http://localhost:8080/DemoWebServices/rest/customers
 @Path("/customers")
-@Produces(MediaType.APPLICATION_XML)
-@Consumes(MediaType.APPLICATION_XML)
+@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 public class CustomerService {
 	// TODO-CV @Inject the dao in later
 	private CustomerDAO dao = new MockCustomerDAO();
 
+	@POST
 	public Customer insert(Customer customer) {
 		return dao.insert(customer);
 	}
 
+	@PUT
 	public Customer update(Customer customer) {
 		return dao.update(customer);
 	}
 
+	@DELETE
 	public Customer delete(Customer customer) {
 		return dao.delete(customer);
 	}
