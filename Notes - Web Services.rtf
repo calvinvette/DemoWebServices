@@ -307,7 +307,7 @@ JAX-WS\
 		\
 \
 \
-Create a Customer class in the com.weasley.data package that:\
+3. Create a Customer class in the com.weasley.data package that:\
 	Implements java.io.Serializable\
 	Has:\
 \
@@ -325,7 +325,7 @@ Create a Customer class in the com.weasley.data package that:\
 	Generate equals+hashcode (de-select customerId)\
 	Generate toString\
 \
-Create a new class called MockCustomerDAO in the same package\
+4. Create a new class called MockCustomerDAO in the same package\
 	This class will have a private static Map<Long, Customer> called customers\
 	A static Long called "lastCustomerId" initially set to 0;\
 	A static initializer that will \
@@ -343,6 +343,35 @@ Create a new class called MockCustomerDAO in the same package\
 \
 \
 {\field{\*\fldinst{HYPERLINK "https://github.com/calvinvette/DemoWebServices"}}{\fldrslt https://github.com/calvinvette/DemoWebServices}}\
+\
+Break until 10:45\
+\
+5. Refactor out the CustomerDAO interface from the MockCustomerDAO\
+	Right-click on the file in the Project Explorer->Refactor->Extract Interface\
+	Name the new interface "CustomerDAO"\
+	Select all methods\
+	Click Finish\
+\
+\
+6. Create a new Java class called CustomerService in the com.weasley.jaxws package\
+	Add a private CustomerDAO property called "dao" \
+		For now - let's instantiate it directly as a new MockCustomerDao();\
+		(We'll @Inject later)\
+	Generate the delegate wrapper methods for the dao\
+		(Right-click in source->Source->Generate Delegate Methods; select all)\
+\
+7. Add the JAX-B @XmlType to the Customer class (from javax.xml.bind.annotation)\
+\
+8. Add in JAX-WS annotations to the CustomerService class (from javax.jws package)\
+	@WebService to the class\
+	@WebMethod to the individual methods\
+	@WebParam to the method parameters (explicitly redundant method names)\
+\
+9. Deploy and Run the app (Project-level DemoWebServices; right-click->Run As->Run on Server\
+\
+10. Open either Membrane or Eclipse Web Service Explorer to the service WSDL and test the service:\
+	{\field{\*\fldinst{HYPERLINK "http://localhost:8080/DemoWebServices/CustomerService?wsdl"}}{\fldrslt http://localhost:8080/DemoWebServices/CustomerService?wsdl}}\
+\
 \
 \
 \

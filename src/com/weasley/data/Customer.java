@@ -2,6 +2,9 @@ package com.weasley.data;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlType;
+
+@XmlType
 public class Customer implements Serializable {
 
 	private Long customerId = -1L;
@@ -9,6 +12,26 @@ public class Customer implements Serializable {
 	private String lastName;
 	private String phoneNumber;
 	private String email;
+
+	public Customer() {
+	}
+
+	public Customer(Long customerId, String firstName, String lastName, String phoneNumber, String email) {
+		super();
+		this.customerId = customerId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+	}
+
+	public Customer(String firstName, String lastName, String phoneNumber, String email) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+	}
 
 	public Long getCustomerId() {
 		return customerId;
