@@ -1,0 +1,368 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;\f2\fnil\fcharset0 TaxTypeMono;
+}
+{\colortbl;\red255\green255\blue255;\red127\green0\blue127;\red42\green0\blue255;\red127\green0\blue85;
+\red0\green0\blue192;}
+\margl1440\margr1440\vieww25100\viewh19220\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 PDF password:\
+\
+jpmc-tt7300-NJ-20160502\
+\
+\
+SOA = Service Oriented Architecture\
+SOAP = Simple Object Access Protocol\
+	CGI POST/GET (mostly POST) HTTP	\
+RESTful - REpresentational State Transfer\
+	
+\b Use "appropriate" HTTP method/verbs to do CRUD\
+
+\b0 \
+	Create	-	POST\
+	Read		-	GET\
+	Update	- 	PUT\
+	Delete		- 	DELETE\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf0 	Uniform/consistent URLs
+\b0 \
+	http://www.weasley.com/rest/customers/\
+		GET http://www.weasley.com/rest/customers/	- retrieve all customers\
+		POST http://www.weasley.com/rest/customers/ - insert into lot of all customers\
+		DELETE http://www.weasley.com/rest/customers/ - delete all customers\
+		PUT http://www.weasley.com/rest/customers/ - update all customers\
+\
+	(assume Harry Potter is a customer with customerId = 1234)\
+\
+	http://www.weasley.com/rest/customers/1234\
+		GET http://www.weasley.com/rest/customers/1234	- retrieve Harry		POST http://www.weasley.com/rest/customers/1234 - insert Harry with that custom\
+		DELETE http://www.weasley.com/rest/customers/1234 - delete Harry\
+		PUT http://www.weasley.com/rest/customers/1234 - update Harry\
+\
+	
+\b Content Negotiation (ConNeg)
+\b0 \
+\
+	JSON = JavaScript Object Notation\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+[\
+
+\fs36 \{"firstName":"Harry","customerId":"1","workAddress":"1","lastName":"Potter","homeAddress":"2","phoneNumber":"+44 0206 987-1234"\},\
+\{"firstName":"Ron","customerId":"2","workAddress":"3","lastName":"Weasley","homeAddress":"4","phoneNumber":"+44 0206 987-1143"\},\
+\{"firstName":"Hermione","customerId":"3","workAddress":"5","lastName":"Granger","homeAddress":"NULL","phoneNumber":"+44 0206 987-6631"\},\
+\{"firstName":"Neville","customerId":"4","workAddress":"6","lastName":"Longbottom","homeAddress":"NULL","phoneNumber":"+44 0206 987-5151"\},\
+\{"firstName":"Dean","customerId":"5","workAddress":"7","lastName":"Thomas","homeAddress":"NULL","phoneNumber":"+44 0206 987-5157"\},\
+\{"firstName":"Seamus","customerId":"6","workAddress":"8","lastName":"Finnigan","homeAddress":"NULL","phoneNumber":"+44 0206 987-7467"\},\
+\{"firstName":"Ginny","customerId":"7","workAddress":"9","lastName":"Weasley","homeAddress":"10","phoneNumber":"+44 0206 987-2728"\},\
+
+\fs24 \
+]\
+
+\f0 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 	var customerList = JSON.parse(stringData)\
+\
+	Java API for XML: Binding (JAX-B) - since Java 6\
+\
+	POJO = Plain Old Java Object\
+		public no-arg CTOR\
+		humpBack/CamelCase convention\
+\
+	JavaBean = PsOJO + Serializable\
+\
+	@XmlType\
+	@XmlRootElement\
+	public class Customer implements java.io.Serializable \{\
+		private Long customerId = -1L;\
+		private String firstName, lastName, phoneNumber, email;\
+		public Customer() \{\}\
+		// Generate the following:\
+		//getters+setters\
+		//toString()\
+		//equals() + hashCode()\
+\
+	\}\
+\
+	Add in Jackson or Jettison - hijacks JAXB bindings to auto produce/consume JSON\
+	\
+\
+Objective C - iOS \
+	NSString + JSON Protocol (mix-in)\
+\
+\
+\
+Enterprise Service Bus (ESB)\
+	Super-Fa\'e7ade for all services in the Enterprise\
+		Solving "Hurricane Rob" problem transparently\
+		(Transparently retiring older services)\
+	Universal/Central Traffic Cop\
+	Universal Translator\
+		protocol <-> protocol (DCOM <-> RMI, or REST <-> CORBA)\
+		data formats (xml <-> JSON, raw SQL <-> JSON)\
+			including data enrichment (from 3rd party providers)\
+		async <-> sync (Java RMI <-> ESB <-> MQ to mainframe)\
+	Enterprise Message Bus\
+		MQ-based broadcaster, loosest coupling\
+	BPMN execution engine\
+		Rules Engine \
+			JBoss ESB: JBoss WildFly AS w/ Drools, \
+			MS BizTalk, \
+			IBM Websphere Process Server (iLog JRules)\
+		Business Process Execution Language (BPEL) -> JRE Bytecode/CLR MSIL\
+	Service Catalog\
+		Multi-lingual searchable registry\
+		UDDI, RMIRegistry, ActiveDirectory\
+	Single Sign On\
+		AD/ADFS, PicketLink/KeyCloak, SAML, WS Federated Security, Kerberos\
+	Metrics tracker (KPI: Key Performance Indicators)\
+	\
+\
+\
+Exercise 1 (in StudentWorkbook) from 2:00 - 2:45\
+\
+PDF password:	jpmc-tt7300-NJ-20160502\
+\
+\
+\
+javax.ws => SOAP-based Web Services\
+javax.ws.rs => RESTful-based Web Services\
+\
+\
+\
+JBoss RestEasy Core\
+	RestEasy JAXB Provider\
+	RestEast Jackson or Jettison Provider (JSON provider)\
+JBossWS\
+\
+JPA (Hibernate EntityManager)\
+JSR 303 Bean Validation (Hibernate Validator)\
+(JAXB provided by Java6+)\
+\
+\
+\
+\
+namespace:\
+\
+http://weasley.com/dataTypes/2016Q1/Customer\
+http://weasley.com/dataTypes/2016Q1/Order\
+http://weasley.com/dataTypes/2016Q1/Account\
+http://weasley.com/dataTypes/2008Q3/Address\
+\
+\
+<?xml version="1.0"?>\
+<order id="1288"\
+			xmlns:cust="http://weasley.com/dataTypes/2016Q1/Customer"\
+			xmlns="http://weasley.com/dataTypes/2016Q1/Order"\
+			xmlns:add="http://weasley.com/dataTypes/2008Q3/Address"\
+			xmlns:acc="http://weasley.com/dataTypes/v1/Account"\
+			
+\f2\fs36 \cf2 xmlns:xsi\cf0 =\cf3 "http://www.w3.org/2001/XMLSchema-instance"\
+			\cf2 xsi:schemaLocation\cf0 =\cf3 "\
+				
+\f0\fs24 \cf0 http://weasley.com/dataTypes/2016Q1/Customer http://weasley.com/dataTypes/2016Q1/Customer.xsd\
+				http://weasley.com/dataTypes/2016Q1/Order http://weasley.com/dataTypes/2016Q1/Order.xsd\
+				http://weasley.com/dataTypes/2008Q3/Address http://weasley.com/dataTypes/2008Q3/Address.xsd\
+				http://weasley.com/dataTypes/v2/Account http://weasley.com/dataTypes/2016Q2/Account.xsd\
+			
+\f2\fs36 \cf3 "
+\f0\fs24 \cf0 \
+	>\
+	<cust:customer id="1234">\
+		<!--\
+<cust:customerId>1234</cust:customerId>\
+		-->\
+		<cust:firstName>Harry</cust:firstName>\
+		<cust:lastName>Potter</cust:lastName>\
+		<add:address>\
+			<add:line>#4 Privet Drive</add:line>\
+			<add:line>Cupboard Under the Stair</add:line>\
+			<add:city>Little Whinging</add:city><add:county>Surrey</add:county>\
+			<add:country>England</add:country>\
+		</add:address>\
+	</cust:customer>\
+	<order_details>\
+		<item id="9194" quantity="4" unitPrice="41.11" taxable="yes"></item>\
+		<item id="1994" quantity="3" unitPrice="1.99" taxable="no"/>\
+		<item id="9194" quantity="4" unitPrice="41.11" taxable="yes"></item>\
+		<item id="1994" quantity="3" unitPrice="1.99" taxable="no"/>\
+\
+	</order_details>\
+	<shipping>\
+		<add:address>\
+			<add:line>#4 Privet Drive</add:line>\
+			<add:line>Cupboard Under the Stair</add:line>\
+			<add:city>Little Whinging</add:city><add:county>Surrey</add:county>\
+			<add:country>England</add:country>\
+		</add:address>\
+	</shipping>\
+</order>\
+\
+<Items>\
+	<item partNum="BB1310">\
+		<productName>Bertie Bott's Every Flavoured Beans</productName> \
+		<quantity>99</quantity>\
+		<price>1.35</price>\
+		<comment>Try the bogie and tripe flavoured beans!</comment>\
+	</item>\
+	<item partNum ="BB1310">\
+		<productName>Fanged Frisbee</productName> \
+		<quantity>1</quantity>\
+		<price>1.35</price>\
+		<comment>Try the bogie and tripe flavoured beans!</comment>\
+	</item>\
+	<item partNum ="BB1310">\
+		<productName>Bertie Bott's Every Flavoured Beans</productName> \
+		<quantity>99</quantity>\
+		<price>1.35</price>\
+		<comment>Try the bogie and tripe flavoured beans!</comment>\
+	</item>	\
+	<item partNum ="BB1310">\
+		<productName>Bertie Bott's Every Flavoured Beans</productName> \
+		<quantity>99</quantity>\
+		<price>1.35</price>\
+		<comment>Try the bogie and tripe flavoured beans!</comment>\
+	</item>\
+\
+</Items>\
+\
+\
+\
+\
+\
+\
+\
+1. Download and unzip WildFly 10.0.0.Final\
+\
+	{\field{\*\fldinst{HYPERLINK "http://wildfly.org/downloads/"}}{\fldrslt http://wildfly.org/downloads/}}\
+\
+	The specific file to download is at:\
+\
+	http://download.jboss.org/wildfly/10.0.0.Final/wildfly-10.0.0.Final.zip\
+\
+2. In Eclipse, Open the Help->Eclipse Marketplace menu item\
+\
+	In the popup's search, look for "JBoss Tools"\
+\
+	Use the version presented - it's most likely the correct version of JBoss Tools\
+		for your current version of Eclipse\
+\
+		ie Eclipse Mars.2 ==> JBoss Tools 4.3.1\
+		\
+		(Install and reboot Eclipse, accepting the "unsigned software" warning)\
+\
+3. Create a new Local WildFly 10 Server\
+	1. Switch to the JEE Perspective if you're not already there\
+	2. In the Server view, right-click in the white space and select "New -> Server"\
+		In the popup, expand "JBoss Community" and select "WildFly Application Server 10.0"\
+			Leave or set the server's host name to "localhost"\
+			Leave or set the Server name to "WildFly 10.0"\
+\
+		Click the Next button.\
+			On this page (page 2), select (or leave selected "Create new runtime (next page)"\
+\
+		Click the Next Button\
+\
+			On this page (page 3), Enter or leave the Name "WildFly 10.0 Runtime"\
+			Set the Home Directory (use the Browse button or type in manually) to the \
+				extracted top level of the JBoss WildFly folder you extracted in Step 1.\
+\
+			If you get the warning about needing a JDK, \
+				select "Alternate JRE"\
+				Click "Installed JREs"\
+					In that screen, click the "Add" button\
+						Select "Standard VM"\
+							In the "Directory" field, Browse to the JAVA_HOME for JDK 8\
+							(C:\\Program Files\\Java\\jdk1.8.0_77)\
+							Click Finish\
+					Check the newly defined JDK as the default\
+					Click OK\
+				Now select the newly defined JDK in the "Alternate JRE" dropdown\
+\
+		\
+		Click Finish (you don't need anything on the next screen)\
+\
+\
+JAX-WS\
+\
+1. Create a new "Dynamic Web Project" called "DemoWebServices"\
+	Select the Targeted Runtime of "WildFly 10.0"\
+	In "Ear Membership", select "Add project to an EAR" and select "New Project"\
+		You'll get e second New Project wizard for "New EAR Application Project"\
+			Create it with the name "DemoWebServicesEAR" and click "Finish"\
+		Click "Next" twice or until you get to the "Web Module" screen and \
+			click "Generate web.xml deployment descriptor"\
+	Click "Finish"\
+\
+2. Right click on the WebContent folder and create a new HTML file called "index.html"\
+	In the editor, add in "<h1>Hello, World</h1>" in the body section.\
+	Save the file (Ctrl/Command-S)\
+	Right click on the file in the Project Explorer or in the whitespace of the HTML file\
+		Select Run->Run As->Run on server\
+		In the popup, select the WildFly 10.0 server and check the box that say			"Always use this server when running this project"\
+			Click Finish.\
+		\
+\
+\
+Create a Customer class in the com.weasley.data package that:\
+	Implements java.io.Serializable\
+	Has:\
+\
+	
+\f2\fs36 \cf4 private\cf0  Long \cf5 \ul \ulc5 customerId\cf0 \ulnone  = -1L;\
+\pard\pardeftab720\partightenfactor0
+\cf0 	\cf4 private\cf0  String \cf5 \ul firstName\cf0 \ulnone ;\
+	\cf4 private\cf0  String \cf5 \ul lastName\cf0 \ulnone ;\
+	\cf4 private\cf0  String \cf5 \ul phoneNumber\cf0 \ulnone ;\
+	\cf4 private\cf0  String \cf5 \ul email\cf0 \ulnone ;
+\f0\fs24 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+	Generate Getters/Setters\
+	Generate equals+hashcode (de-select customerId)\
+	Generate toString\
+\
+Create a new class called MockCustomerDAO in the same package\
+	This class will have a private static Map<Long, Customer> called customers\
+	A static Long called "lastCustomerId" initially set to 0;\
+	A static initializer that will \
+		instantiate it as a HashMap\
+		populate with at least 3 customer instances (increment lastCustomerId each time)\
+\
+	\
+	public Customer insert(Customer customer)\
+	public Customer update(Customer customer)\
+	public Customer delete(Customer customer)\
+	public Customer findById(Long customerId)\
+	public List<Customer> findAll()\
+	public List<Customer> findByLastName(String lastName)\
+\
+\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/calvinvette/DemoWebServices"}}{\fldrslt https://github.com/calvinvette/DemoWebServices}}\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
