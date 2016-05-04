@@ -2,9 +2,11 @@ package com.weasley.data;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType
+@XmlRootElement
 public class Customer implements Serializable {
 
 	private Long customerId = -1L;

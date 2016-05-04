@@ -10,7 +10,7 @@ import com.weasley.data.Customer;
 import com.weasley.data.CustomerDAO;
 import com.weasley.data.MockCustomerDAO;
 
-@WebService
+@WebService(targetNamespace="http://weasley.com/CustomerService")
 public class CustomerService {
 	// TODO-CV - @Inject the dao
 	private CustomerDAO dao = new MockCustomerDAO();
@@ -46,12 +46,12 @@ public class CustomerService {
 	}
 
 	@WebMethod
-	public List<Customer> findByEmail(String email) {
+	public List<Customer> findByEmail(@WebParam(name="email") String email) {
 		return dao.findByEmail(email);
 	}
 
 	@WebMethod
-	public List<Customer> findByPhoneNumber(String phoneNumber) {
+	public List<Customer> findByPhoneNumber(@WebParam(name="phoneNumber") String phoneNumber) {
 		return dao.findByPhoneNumber(phoneNumber);
 	}
 	

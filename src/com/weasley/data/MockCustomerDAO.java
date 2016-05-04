@@ -21,23 +21,46 @@ public class MockCustomerDAO implements CustomerDAO {
 
 	private static Customer updateCustomer(Customer customer) {
 		customers.put(customer.getCustomerId(), customer);
-		customersByLastName.get(customer.getLastName().toLowerCase()).add(customer);
-		customersByPhoneNumber.get(customer.getPhoneNumber().toLowerCase()).add(customer);
-		customersByEmail.get(customer.getEmail().toLowerCase()).add(customer);
+		List<Customer> lastNameList = customersByLastName.get(customer.getLastName().toLowerCase());
+		if (lastNameList == null) {
+			lastNameList = new Vector<>();
+		}
+		lastNameList.add(customer);
+		customersByLastName.put(customer.getLastName().toLowerCase(), (lastNameList));
+		List<Customer> phoneNumberList = customersByPhoneNumber.get(customer.getPhoneNumber().toLowerCase());
+		if (phoneNumberList == null) {
+			phoneNumberList = new Vector<>();
+		}
+		phoneNumberList.add(customer);
+		customersByPhoneNumber.put(customer.getPhoneNumber().toLowerCase(), phoneNumberList);
+		List<Customer> emailList = customersByEmail.get(customer.getEmail().toLowerCase());
+		if (emailList == null) {
+			emailList = new Vector<>();
+		}
+		emailList.add(customer);
+		customersByEmail.put(customer.getEmail().toLowerCase(), emailList);
 		return customer;
 	}
 
 	public static Customer deleteCustomer(Customer customer) {
 		customers.remove(customer.getCustomerId());
-		customersByLastName.get(customer.getLastName().toLowerCase()).remove(customer);
-		customersByPhoneNumber.get(customer.getPhoneNumber().toLowerCase()).remove(customer);
-		customersByEmail.get(customer.getEmail().toLowerCase()).remove(customer);
+		if (customersByLastName.get(customer.getLastName().toLowerCase()) != null) {
+			customersByLastName.get(customer.getLastName().toLowerCase()).remove(customer);
+		}
+		if (customersByPhoneNumber.get(customer.getPhoneNumber().toLowerCase()) != null) {
+			customersByPhoneNumber.get(customer.getPhoneNumber().toLowerCase()).remove(customer);
+		}
+		if (customersByEmail.get(customer.getEmail().toLowerCase()) != null) {
+			customersByEmail.get(customer.getEmail().toLowerCase()).remove(customer);
+		}
 		return customer;
 	}
 
 	static {
 		customers = new HashMap<>();
 		customersByLastName = new HashMap<>();
+		customersByPhoneNumber = new HashMap<>();
+		customersByEmail = new HashMap<>();
 
 		addCustomer(new Customer("Harry", "Potter", "+44 0206 555-1113", "harry.potter@hogwarts.ac.uk"));
 		addCustomer(new Customer("Ron", "Weasley", "+44 0206 555-1314", "ron.weasley@hogwarts.ac.uk"));
