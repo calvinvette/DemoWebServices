@@ -44,6 +44,16 @@ public class CustomerService {
 	public List<Customer> findByLastName(@WebParam(name="lastName") String lastName) {
 		return dao.findByLastName(lastName);
 	}
+
+	@WebMethod
+	public List<Customer> findByEmail(String email) {
+		return dao.findByEmail(email);
+	}
+
+	@WebMethod
+	public List<Customer> findByPhoneNumber(String phoneNumber) {
+		return dao.findByPhoneNumber(phoneNumber);
+	}
 	
 	
 

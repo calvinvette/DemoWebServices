@@ -16,4 +16,8 @@ public interface CustomerDAO {
 
 	List<Customer> findByLastName(String lastName);
 
+	List<Customer> findByEmail(String email);
+
+	List<Customer> findByPhoneNumber(String phoneNumber);
+
 }
